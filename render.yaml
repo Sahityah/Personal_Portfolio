@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: personal-portfolio-backend
+    env: docker
+    plan: free
+    branch: master
