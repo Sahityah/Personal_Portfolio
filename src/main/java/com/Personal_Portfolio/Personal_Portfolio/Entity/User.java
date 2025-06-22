@@ -23,15 +23,23 @@ public class User {
     private String email;
 
     private String password;
-    private String role; // ADMIN, USER
-    private String provider; // LOCAL, GOOGLE
-
-    private Double networth;
-    private Double marginAvailable;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    private String role; // ADMIN, USER
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "provider")
+    private Provider provider;
+
+    public enum Provider {
+        EMAIL,
+        GOOGLE
+    }
+
+
 }
