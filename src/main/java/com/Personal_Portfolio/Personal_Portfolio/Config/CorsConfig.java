@@ -14,7 +14,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // allow all routes
-                        .allowedOrigins("https://sahityah.github.io") // your frontend domain
+                        .allowedOrigins("https://sahityah.github.io","https://portpolio-core-front.onrender.com") // your frontend domain
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*");
             }

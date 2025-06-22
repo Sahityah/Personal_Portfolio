@@ -26,7 +26,8 @@ public class SwaggerConfig {
                                 .name("Apache 2.0")
                                 .url("http://springdoc.org")))
                 .servers(List.of(
-                        new Server().url("http://localhost:8080").description("Local server")
+                        new Server().url("http://localhost:8080").description("Local server"),
+                        new Server().url("https://personal-portfolio-29nl.onrender.com").description("Render deployed server")
                 ) );
     }
 }
