@@ -6,6 +6,7 @@ import com.Personal_Portfolio.Personal_Portfolio.Service.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -16,6 +17,9 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
+
+    @Value("${frontend.oauth2.redirect-url}")
+    private String redirectUrl;
 
     private final JwtService jwtService;
     private final UserRepository userRepository;
@@ -37,7 +41,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                             .email(email)
                             .name(name)
                             .role("USER")
-                            .provider("GOOGLE")
+                            .provider(User.Provider.GOOGLE)
                             .build();
                     return userRepository.save(newUser);
                 });
@@ -45,7 +49,8 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         String token = jwtService.generateToken(user);
 
         // Redirect to frontend with token
-        response.sendRedirect("http://localhost:3000/oauth2/redirect?token=" + token);
+        response.sendRedirect(redirectUrl + "?token=" + token);
+
     }
 }
 
