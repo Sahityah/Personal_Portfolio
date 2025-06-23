@@ -1,5 +1,6 @@
 package com.Personal_Portfolio.Personal_Portfolio.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -17,18 +19,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
 
+    @JsonIgnore // Do not expose password hash via API
     @Column(unique = true)
     private String email;
 
     private String password;
 
-    @CreationTimestamp
     private LocalDateTime createdAt;
+    private LocalDateTime lastLogin;
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
 
     private String role; // ADMIN, USER
 
