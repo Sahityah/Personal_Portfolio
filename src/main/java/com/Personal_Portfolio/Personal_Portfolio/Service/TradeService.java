@@ -23,7 +23,7 @@ public class TradeService {
     private final TradeRepository tradeRepository;
     private final PositionRepository positionRepository;
     private final PortfolioRepository portfolioRepository; // To interact with Portfolio data
-    private final KafkaTemplate<String, Trade> kafkaTemplate; // Kafka for asynchronous trade processing
+    private final KafkaTemplate<String, Object> kafkaTemplate; // Kafka for asynchronous trade processing
 
     private static final String USER_TRADE_COMMANDS_TOPIC = "user-trades-commands";
     private static final String ORDER_STATUS_UPDATES_TOPIC = "order-status-updates";
