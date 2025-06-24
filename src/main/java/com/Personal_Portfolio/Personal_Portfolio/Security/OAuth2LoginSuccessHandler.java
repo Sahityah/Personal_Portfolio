@@ -40,7 +40,6 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                     User newUser = User.builder()
                             .email(email)
                             .name(name)
-                            .role("USER")
                             .provider(User.Provider.GOOGLE)
                             .build();
                     return userRepository.save(newUser);
