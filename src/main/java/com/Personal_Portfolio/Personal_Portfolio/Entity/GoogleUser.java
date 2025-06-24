@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public class GoogleUser {
     private String email;
-    private String name;
+    private String username;
 }

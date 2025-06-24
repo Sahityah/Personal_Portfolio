@@ -45,7 +45,7 @@ public class UserService {
 
         // Create new user entity and set provider as EMAIL
         User user = User.builder()
-                .name(request.getName())
+                .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .provider(User.Provider.EMAIL)
@@ -91,7 +91,7 @@ public class UserService {
             } else {
                 // Register new user for Google login
                 user = new User();
-                user.setName(name);
+                user.setUsername(name);
                 user.setEmail(email);
                 user.setProvider(User.Provider.GOOGLE);
                 // For Google authenticated users, password field can remain null or empty as they authenticate via Google
@@ -126,7 +126,7 @@ public class UserService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found."));
 
-        user.setName(userDto.getName());
+        user.setUsername(userDto.getUsername());
         user.setPhone(userDto.getPhone());
         user.setAddress(userDto.getAddress());
         user.setCity(userDto.getCity());
@@ -157,7 +157,7 @@ public class UserService {
         UserDto dto = new UserDto();
         dto.setId(user.getId());
         dto.setEmail(user.getEmail());
-        dto.setName(user.getName());
+        dto.setUsername(user.getUsername());
         dto.setAvatar(user.getAvatar());
         dto.setPhone(user.getPhone());
         dto.setAddress(user.getAddress());

@@ -55,7 +55,7 @@ public class JwtService {
         // Prepare claims for the JWT
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", user.getId());
-        claims.put("name", user.getName());
+        claims.put("name", user.getUsername());
         claims.put("provider", user.getProvider().name()); // Store provider as a string
 
         // Build the JWT token using JJWT

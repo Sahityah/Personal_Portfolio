@@ -39,7 +39,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                 .orElseGet(() -> {
                     User newUser = User.builder()
                             .email(email)
-                            .name(name)
+                            .username(name)
                             .provider(User.Provider.GOOGLE)
                             .build();
                     return userRepository.save(newUser);

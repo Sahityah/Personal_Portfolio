@@ -23,7 +23,7 @@ public class User {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String name;
+    private String username;
 
     @JsonIgnore // Do not expose password hash via API
     @Column(unique = true)
