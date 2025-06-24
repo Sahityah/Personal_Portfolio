@@ -22,7 +22,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -53,8 +53,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
-                                "/api/auth/**",
-                                "/oauth2/**", "/login/**"
+                                "/api/auth/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

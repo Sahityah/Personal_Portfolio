@@ -28,6 +28,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(JwtAuthFilter.class);
 
 
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+        return path.startsWith("/api/auth/");
+    }
     /**
      * This method filters incoming HTTP requests to validate JWT tokens.
      * If a valid JWT is found and the user is authenticated, it sets the authentication
@@ -61,9 +67,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             // Attempt to extract the username (email) from the JWT.
             userEmail = jwtService.extractUsername(jwt);
         } catch (Exception e) {
-            // Log a warning if the JWT is invalid and proceed to the next filter.
             logger.warn("Invalid JWT Token: {}", e.getMessage());
-            filterChain.doFilter(request, response);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"error\": \"Invalid or expired JWT token.\"}");
             return;
         }
 
