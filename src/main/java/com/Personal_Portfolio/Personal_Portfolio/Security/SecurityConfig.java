@@ -53,14 +53,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
-                                "/api/auth/**"
+                                "/api/auth/**", "/oauth2/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .oauth2Login(oauth -> oauth.successHandler(oAuth2LoginSuccessHandler));
+                .oauth2Login(oauth -> oauth
+                        .authorizationEndpoint(endpoint -> endpoint.baseUri("/oauth2/authorize"))
+                        .redirectionEndpoint(endpoint -> endpoint.baseUri("/oauth2/callback/*"))
+                        .successHandler(oAuth2LoginSuccessHandler) // issue JWT here
+                );
 
         return http.build();
     }
