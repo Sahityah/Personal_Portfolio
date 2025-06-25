@@ -42,7 +42,7 @@ public class PositionController {
                 .orElseThrow(() -> new IllegalStateException("Authenticated user not found."));
     }
 
-    @GetMapping
+    @GetMapping("/getAllPositions")
     public ResponseEntity<Page<Position>> getAllPositions(@RequestParam(defaultValue = "0") int page,
                                                           @RequestParam(defaultValue = "10") int size) {
         try {
@@ -56,7 +56,7 @@ public class PositionController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/addPosition")
     public ResponseEntity<?> addPosition(@Valid @RequestBody PositionDto request) {
         try {
             User currentUser = getAuthenticatedUser();
@@ -76,7 +76,7 @@ public class PositionController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/updatePosition/{id}")
     public ResponseEntity<?> updatePosition(@PathVariable Long id, @RequestBody Position updatedPosition) {
         try {
             User currentUser = getAuthenticatedUser();
@@ -89,7 +89,7 @@ public class PositionController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletePosition/{id}")
     public ResponseEntity<Void> deletePosition(@PathVariable Long id) {
         try {
             User currentUser = getAuthenticatedUser();

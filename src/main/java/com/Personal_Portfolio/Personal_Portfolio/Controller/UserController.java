@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/profile")
+    @GetMapping("/getProfile")
     public ResponseEntity<?> getUserProfile() {
         try {
             User currentUser = userService.getCurrentUser();
@@ -35,7 +35,7 @@ public class UserController {
         }
     }
 
-    @PatchMapping("/profile")
+    @PatchMapping("/updateProfile")
     public ResponseEntity<?> updateUserProfile(@Valid @RequestBody UserDto userDto) {
         try {
             User currentUser = userService.getCurrentUser();

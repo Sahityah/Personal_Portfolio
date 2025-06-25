@@ -27,7 +27,7 @@ public class PortfolioController {
     @Autowired
     private UserService userService; // To get current authenticated user
 
-    @GetMapping("")
+    @GetMapping("getPortfolioOverview")
     public ResponseEntity<PortfolioDataDto> getPortfolioOverview() {
         User currentUser = userService.getCurrentUser();
         if (currentUser == null) {
@@ -37,7 +37,7 @@ public class PortfolioController {
         return ResponseEntity.ok(portfolioData);
     }
 
-    @GetMapping("/positions")
+    @GetMapping("/getAllPositions")
     public ResponseEntity<List<PositionDto>> getAllPositions(
             @RequestParam Optional<String> status,
             @RequestParam Optional<String> segment) {
@@ -49,7 +49,7 @@ public class PortfolioController {
         return ResponseEntity.ok(positions);
     }
 
-    @PostMapping("/positions")
+    @PostMapping("/addPositions")
     public ResponseEntity<PositionDto> addPosition(@Valid @RequestBody PositionDto positionDto) {
         User currentUser = userService.getCurrentUser();
         if (currentUser == null) {

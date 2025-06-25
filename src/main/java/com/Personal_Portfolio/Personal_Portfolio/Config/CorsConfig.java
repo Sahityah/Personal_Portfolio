@@ -1,3 +1,4 @@
+// src/main/java/com/Personal_Portfolio/Personal_Portfolio/Config/CorsConfig.java
 package com.Personal_Portfolio.Personal_Portfolio.Config;
 
 import org.springframework.context.annotation.Bean;
@@ -13,10 +14,12 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // allow all routes
-                        .allowedOrigins("https://sahityah.github.io","https://portpolio-core-front.onrender.com") // your frontend domain
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*");
+                registry.addMapping("/**") // Apply CORS to all paths in your API
+                        .allowedOrigins("https://portpolio-core-front.onrender.com") // !!! IMPORTANT: Your frontend domain !!!
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // <--- Added OPTIONS method
+                        .allowedHeaders("*") // Allow all headers
+                        .allowCredentials(true) // <--- Added to allow credentials (e.g., Authorization headers, cookies)
+                        .maxAge(3600); // How long the preflight request results can be cached (in seconds)
             }
         };
     }
